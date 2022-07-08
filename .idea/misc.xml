@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="svn://test.vtown.vn/core/Projects/Wargo/04_Source/blog" />
+                  <option value="svn://test.vtown.vn/core/Projects/Wargo/04_Source/branches" />
+                  <option value="svn://test.vtown.vn/core/Projects/Wargo/04_Source/tags" />
+                  <option value="svn://test.vtown.vn/core/Projects/Wargo/04_Source/wargo.jp" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="svn://test.vtown.vn/core/Projects/Wargo/04_Source/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,509 @@
+<?php
+/**
+ * The template for displaying all single posts and attachments
+ *
+ * @package WordPress
+ * @subpackage Twenty_Fifteen
+ * @since Twenty Fifteen 1.0
+ */
+ ?>
+
+<?php
+    get_header();
+
+    gt_set_post_view();
+
+    global $post, $is_active_plugin_dynamic_image_resizer;
+    $postName = $post->post_name ? $post->post_name : '';
+    $baseUrl = base_url_func();
+    if ( wp_is_mobile() ) {
+        wp_register_style('column-ec-v2-sp-style', THEME_URL.'/css/column-ec-v2-sp.css', 'twentyfifteen', time());
+        wp_enqueue_style('column-ec-v2-sp-style');
+    } else {
+        wp_register_style('column-ec-v2-pc-style', THEME_URL.'/css/column-ec-v2-pc.css', 'twentyfifteen', time());
+        wp_enqueue_style('column-ec-v2-pc-style');
+    }
+
+    $obj_tax_column = get_the_terms($post->ID, 'category');
+    $cate_name = '';
+    if ($obj_tax_column) {
+        foreach ($obj_tax_column as $tax_column){
+            if ($tax_column->parent == 0) {
+                $cate_name = $tax_column->slug;
+            }
+        }
+    }
+
+    $arr_meta_cate = array(
+        'kanzashi' => array(
+            'cate_name' => 'かんざし屋wargo',
+            'cate_list_id' => 86
+        ),
+        'umbrella' => array(
+            'cate_name' => '北斎グラフィック',
+            'cate_list_id' => 626
+        ),
+        'obidome' => array(
+            'cate_name' => 'おびどめ屋wargo',
+            'cate_list_id' => 633
+        ),
+        'accessary' => array(
+            'cate_name' => 'かすう工房',
+            'cate_list_id' => 85
+        ),
+        'chopsticks' => array(
+            'cate_name' => '箸や万作',
+            'cate_list_id' => 939
+        ),
+        'yukata' => array(
+            'cate_name' => 'ゆかた屋hiyori',
+            'cate_list_id' => 718
+        ),
+        'pickup' => array(
+            'cate_name' => '特集・ピックアップ',
+            'cate_list_id' => 0
+        ),
+        'imayo' => array(
+            'cate_name' => 'IMAYO',
+            'cate_list_id' => 1587
+        ),
+        'catlover' => array(
+            'cate_name' => '猫まっしぐら',
+            'cate_list_id' => 1442
+        ),
+    );
+
+?>
+
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div id="breadcrumbs" class="breadcrumbs-ec">
+                <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                    <li class="item-breadcrumbs" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a class="link-breadcrumbs" itemprop="item" href="https://www.wargo.jp/">
+                            <span class="text-breadcrumbs" itemprop="name">TOP</span>
+                        </a>
+                        <meta itemprop="position" content="0">
+                    </li>
+                    <span class="separator"> &gt; </span>
+                    <li class="item-breadcrumbs" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a class="link-breadcrumbs" itemprop="item" href="https://www.wargo.jp/column">
+                            <span class="text-breadcrumbs" itemprop="name">座市コラム特集</span>
+                        </a>
+                        <meta itemprop="position" content="1">
+                    </li>
+                    <span class="separator"> &gt; </span>
+                    <li class="item-breadcrumbs" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a class="link-breadcrumbs" itemprop="item" href="https://www.wargo.jp/column/<?php echo isset($cate_name) ? $cate_name : '#'; ?>">
+                            <span class="text-breadcrumbs" itemprop="name"><?php echo isset($arr_meta_cate[$cate_name]['cate_name']) ? $arr_meta_cate[$cate_name]['cate_name'] : ''; ?></span>
+                        </a>
+                        <meta itemprop="position" content="2">
+                    </li>
+                    <span class="separator"> &gt; </span>
+                    <li class="item-breadcrumbs last-breadcrumbs" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <span class="text-breadcrumbs" itemprop="name"><?php the_title(); ?></span>
+                        <meta itemprop="position" content="3">
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap-column-content flexbox">
+    <div class="wrap-content-left wrap-post-content">
+
+        <div class="wrap-feature-image">
+            <?php
+                if (wp_is_mobile()){
+                    if($is_active_plugin_dynamic_image_resizer){
+                        $feature_image = has_post_thumbnail($post->ID) ? swe_get_the_post_thumbnail($post->ID, array(335,200), array('alt' => get_the_title())) : '<img src="' . THEME_URL . '/images/no-image-feature-sp.jpg" alt="' . get_the_title() . '">';
+                    } else {
+                        $feature_image = has_post_thumbnail($post->ID) ? get_the_post_thumbnail($post->ID, 'full', array('alt' => get_the_title())) : '<img src="' . THEME_URL . '/images/no-image-feature-sp.jpg" alt="' . get_the_title() . '">';
+                    }
+                }else{
+                    $feature_image = has_post_thumbnail($post->ID) ? get_the_post_thumbnail($post->ID, 'full', array('alt' => get_the_title())) : '<img src="' . THEME_URL . '/images/no-image-feature.jpg" alt="' . get_the_title() . '">';
+                }
+                echo $feature_image;
+            ?>
+            <div class="info-feature-image">
+                <h1 class="title-column"><?php the_title(); ?></h1>
+                <ul class="list-info-feature flexbox">
+                    <li class="text">投稿日</li>
+                    <li class="date"><?php echo get_the_date('Y.m.d', $post->ID); ?></li>
+                    <li class="num-view"><?php echo gt_get_post_view(); ?></li>
+                </ul>
+            </div>
+        </div>
+        <p class="wrap-brief-column">
+            <?php
+                /*$post_content =  wp_trim_words($post->post_content);
+                $num_word_brief = 150;
+                if (wp_is_mobile()) {
+                    $num_word_brief = 60;
+                }
+                $brief_column = mb_substr( $post_content, 0, $num_word_brief, "utf-8" ) . ' ...';
+                echo $brief_column;*/
+            ?>
+        </p>
+
+        <div class="entry-content">
+            <?php if ( have_posts() ) : while ( have_posts() ) : the_post();
+                the_content();
+            endwhile; else: ?>
+                <p>Sorry, no posts matched your criteria.</p>
+            <?php endif; ?>
+        </div>
+
+        <?php if ($cate_name != "pickup") : ?>
+            <?php if ($cate_name == "imayo") : ?>
+                <div class="wrap-related-products" id="wrap_related_products_api">
+                    <h2 class="title-product">関連商品</h2>
+                    <div class="wrap-product-content flexbox">
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13427.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500100050040.jpg" alt="米ぬか練りきり石鹸">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13427.html">米ぬか練りきり石鹸-菊</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13427.html"><strong>￥1,200(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13426.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500100040034.jpg" alt="米ぬか練りきり石鹸-鶯">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13426.html">米ぬか練りきり石鹸-鶯</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13426.html"><strong>￥1,200(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13425.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500100030028.jpg" alt="米ぬか練りきり石鹸-満開桜">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13425.html">米ぬか練りきり石鹸-満開桜</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13425.html"><strong>￥1,200(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13424.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500100020012.jpg" alt="米ぬか練りきり石鹸-梅">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13424.html">米ぬか練りきり石鹸-梅</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13424.html"><strong>￥1,200(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13429.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500200040088.jpg" alt="IMAYO米ぬか石鹸-花柚子">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13429.html">IMAYO米ぬか石鹸-花柚子</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13429.html"><strong>￥1,900(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13430.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500200060109.jpg" alt="IMAYO米ぬか石鹸-金時生姜">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13430.html">IMAYO米ぬか石鹸-金時生姜</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13430.html"><strong>￥1,900(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13431.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500200080121.jpg" alt="IMAYO米ぬか石鹸-零れ桜">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13431.html">IMAYO米ぬか石鹸-零れ桜</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13431.html"><strong>￥1,900(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13432.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500200100140.jpg" alt="IMAYO米ぬか石鹸-日本茶">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13432.html">IMAYO米ぬか石鹸-日本茶</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13432.html"><strong>￥1,900(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13443.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500300050192.jpg" alt="米ぬか羊かん石鹸-抹茶">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13443.html">米ぬか羊かん石鹸-抹茶</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13443.html"><strong>￥600(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13439.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500300010158.jpg" alt="米ぬか羊かん石鹸-栗">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13439.html">米ぬか羊かん石鹸-栗</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13439.html"><strong>￥600(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13456.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7520700030099.jpg" alt="枡ごとソルト-薫衣草">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13456.html">枡ごとソルト-薫衣草</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13456.html"><strong>￥1,400(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13454.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7520700010077.jpg" alt="枡ごとソルト-薔薇">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13454.html">枡ごとソルト-薔薇</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13454.html"><strong>￥1,400(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13452.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7520400010056.jpg" alt="米ぬかオイルボディクリーム-無香料">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13452.html">米ぬかオイルボディクリーム-無香料</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13452.html"><strong>￥2,400(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13461.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500600010001.jpg" alt="こんにゃくスポンジ‐つやの玉">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13461.html">こんにゃくスポンジ‐つやの玉</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13461.html"><strong>￥1,200(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13446.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500400020019.jpg" alt="IMAYO 巾着帆布-ピンク">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13446.html">IMAYO 巾着帆布-ピンク</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13446.html"><strong>￥900(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-box-wrap">
+                            <div class="item-box-photo">
+                                <a href="https://www.wargo.jp/products/detail13447.html">
+                                    <img src="https://www.wargo.jp/upload/save_image/7500400030025.jpg" alt="IMAYO 手提げ帆布-生成り">
+                                </a>
+                            </div>
+                            <div class="item-box-data">
+                                <h3 class="name">
+                                    <a href="https://www.wargo.jp/products/detail13447.html">IMAYO 手提げ帆布-生成り</a>
+                                </h3>
+                                <div class="item-box-price">
+                                    <a href="https://www.wargo.jp/products/detail13447.html"><strong>￥900(税別）</strong></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="wrap-related-products" id="wrap_related_products_api"></div>
+            <?php endif ?>
+        <?php endif ?>
+
+        <div class="wrap-related-columns">
+            <h2 class="title-related-columns">関連 する コラム</h2>
+            <ul class="list-related-columns flexbox">
+            <?php
+            $related_columns = get_posts( array( 'category__in' => wp_get_post_categories($post->ID), 'numberposts' => 4, 'post__not_in' => array($post->ID) ) );
+            if ($related_columns) {
+                foreach( $related_columns as $post ) {
+                    if ($is_active_plugin_dynamic_image_resizer) {
+                        $img_post = has_post_thumbnail($post->ID) ? swe_get_the_post_thumbnail($post->ID, array(343,139), array('alt' => get_the_title())) : '<img src="' . THEME_URL . '/images/no-image.jpg?ver=20200702343" alt="' . get_the_title() . '">';
+                    } else {
+                        $img_post = has_post_thumbnail($post->ID) ? get_the_post_thumbnail($post->ID, 'full', array('alt' => get_the_title())) : '<img src="' . THEME_URL . '/images/no-image.jpg?ver=20200702343" alt="' . get_the_title() . '">';
+                    }
+                    $post_content =  wp_trim_words($post->post_content);
+                    $num_word = 50;
+                    if (wp_is_mobile()) {
+                        $num_word = 20;
+                    }
+                    $description = mb_substr( $post_content, 0, $num_word, "utf-8" ) . ' ...';
+                    setup_postdata($post);
+                ?>
+                    <li class="related-column">
+                        <a href="<?php the_permalink() ?>">
+                            <p class="image"><?php echo $img_post; ?></p>
+                            <p class="title"><?php the_title(); ?></p>
+                            <p class="description"><?php echo isset($description)?$description:''; ?></p>
+                        </a>
+                    </li>
+            <?php }
+                wp_reset_postdata();
+            }
+            ?>
+            </ul>
+        </div>
+
+        <?php if ($arr_meta_cate[$cate_name]['cate_list_id']) : ?>
+            <div class="banner-return-list">
+                <a href="https://www.wargo.jp/products/list<?php echo $arr_meta_cate[$cate_name]['cate_list_id']; ?>.html">
+                    <img src="<?php echo $baseUrl . '/images/banner-return-list' . $arr_meta_cate[$cate_name]['cate_list_id']; ?>.jpg" alt="">
+                </a>
+            </div>
+        <?php endif ?>
+
+    </div>
+    <?php if (!wp_is_mobile()) : ?>
+        <div class="wrap-content-right">
+            <?php get_template_part('include/sidebar-right-pc'); ?>
+        </div>
+    <?php endif ?>
+</div>
+
+<script type="text/javascript">
+    var $ = jQuery.noConflict();
+
+    $(document).ready(function () {
+        if ($('#toc_container').length) {
+            $('#toc_container').insertAfter('.wrap-brief-column');
+        }
+
+        // BEGIN: Call API get products of category
+        var cate_id = "<?php echo $arr_meta_cate[$cate_name]['cate_list_id']; ?>";
+        if (cate_id != '1587') {
+            $.ajax({
+                method: 'GET',
+                dataType: 'json',
+                url: 'https://www.wargo.jp/api/?action=product&format=json&cates='+cate_id+'&limit=16',
+                success: function(res){
+                    console.log('api success');
+                    console.log(res.response.items);
+                    var related_products = '';
+                    related_products += '<h2 class="title-product">関連商品</h2>';
+                    related_products += '<div class="wrap-product-content flexbox">';
+                    $.each(res.response.items, function (index, value) {
+                        related_products += '<div class="item-box-wrap">';
+                        related_products += '<div class="item-box-photo">';
+                        related_products += '<a href="'+ value.url_link +'">';
+                        related_products += '<img src="'+ value.main_image +'" alt="'+ value.short_name1 +'">';
+                        related_products += '</a>';
+                        related_products += '</div>';
+                        related_products += '<div class="item-box-data">';
+                        related_products += '<h3 class="name"><a href="'+ value.url_link +'">'+ value.short_name1 +'</a></h3>';
+                        related_products += '<div class="item-box-price">';
+                        related_products += '<a href="'+ value.url_link +'"><strong>￥'+ accounting.formatNumber(value.price) +' (税別)</strong></a>';
+                        related_products += '</div>';
+                        related_products += '</div>';
+                        related_products += '</div>';
+                    });
+                    related_products += '</div>';
+                    $('#wrap_related_products_api').append(related_products);
+                }
+            });
+        }
+        // END: Call API get products of category
+
+    });
+</script>
+<?php get_footer(); ?>
+
+<script src="<?php echo THEME_URL; ?>/js/accounting.min.js"></script>
+

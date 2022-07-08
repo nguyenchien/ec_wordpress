@@ -1,0 +1,174 @@
+<?php
+/*
+ * Template Name: Column Top
+ */
+?>
+<?php
+    get_header();
+
+    global $post;
+    $postName = $post->post_name ? $post->post_name : '';
+
+    if ( wp_is_mobile() ) {
+        wp_register_style('column-ec-v2-sp-style', THEME_URL.'/css/column-ec-v2-sp.css', 'twentyfifteen', time());
+        wp_enqueue_style('column-ec-v2-sp-style');
+    } else {
+        wp_register_style('column-ec-v2-pc-style', THEME_URL.'/css/column-ec-v2-pc.css', 'twentyfifteen', time());
+        wp_enqueue_style('column-ec-v2-pc-style');
+    }
+
+    $baseUrl = base_url_func();
+?>
+
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div id="breadcrumbs" class="breadcrumbs-ec">
+                <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                    <li class="item-breadcrumbs" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a class="link-breadcrumbs" itemprop="item" href="https://www.wargo.jp/">
+                            <span class="text-breadcrumbs" itemprop="name">TOP</span>
+                        </a>
+                        <meta itemprop="position" content="0">
+                    </li>
+                    <span class="separator"> &gt; </span>
+                    <li class="item-breadcrumbs" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <span class="text-breadcrumbs" itemprop="name">座市コラム特集</span>
+                        <meta itemprop="position" content="1">
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap-column-content flexbox">
+    <?php if (wp_is_mobile()) : ?>
+        <div class="wrap-content-left">
+
+            <h1 class="page-title-h1">座市コラム特集｜和ファッションの豆知識</h1>
+
+            <div class="wrap-column-banner">
+                <img src="<?php echo $baseUrl ?>/images/banner-column-kanzashi-sp.jpg" alt="kanzashi">
+            </div>
+
+            <div class="wrap-list-banner-cate">
+                <ul class="list-banner">
+                    <li class="item">
+                        <a href="https://www.wargo.jp/products/list939.html">
+                            <img src="<?php echo $baseUrl ?>/images/banner-cate-01.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/products/list86.html">
+                            <img src="<?php echo $baseUrl ?>/images/banner-cate-02.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/products/list626.html">
+                            <img src="<?php echo $baseUrl ?>/images/banner-cate-03.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/products/list85.html">
+                            <img src="<?php echo $baseUrl ?>/images/banner-cate-04.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/products/list718.html">
+                            <img src="<?php echo $baseUrl ?>/images/banner-cate-05.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/products/list633.html">
+                            <img src="<?php echo $baseUrl ?>/images/banner-cate-06.jpg" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="wrap-list-banner-inbound">
+                <ul class="list-banner">
+                    <li class="item">
+                        <a href="https://www.wargo.jp/column/accessary">
+                            <img src="<?php echo $baseUrl ?>/images/banner-ib-01.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/column/kanzashi">
+                            <img src="<?php echo $baseUrl ?>/images/banner-ib-02.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/column/chopsticks">
+                            <img src="<?php echo $baseUrl ?>/images/banner-ib-03.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/column/umbrella">
+                            <img src="<?php echo $baseUrl ?>/images/banner-ib-04.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/column/yukata">
+                            <img src="<?php echo $baseUrl ?>/images/banner-ib-05.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/column/obidome">
+                            <img src="<?php echo $baseUrl ?>/images/banner-ib-06.jpg" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <?php else : ?>
+        <div class="wrap-content-left">
+
+            <h1 class="page-title-h1">座市コラム特集｜和ファッションの豆知識</h1>
+
+            <div class="wrap-column-banner">
+                <img src="<?php echo $baseUrl ?>/images/banner-column-kanzashi-pc.jpg" alt="kanzashi">
+            </div>
+
+            <div class="wrap-list-banner-inbound">
+                <ul class="list-banner flexbox">
+                    <li class="item">
+                        <a href="https://www.wargo.jp/column/accessary">
+                            <img src="<?php echo $baseUrl ?>/images/banner-ib-01.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/column/kanzashi">
+                            <img src="<?php echo $baseUrl ?>/images/banner-ib-02.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/column/chopsticks">
+                            <img src="<?php echo $baseUrl ?>/images/banner-ib-03.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/column/umbrella">
+                            <img src="<?php echo $baseUrl ?>/images/banner-ib-04.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/column/yukata">
+                            <img src="<?php echo $baseUrl ?>/images/banner-ib-05.jpg" alt="">
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="https://www.wargo.jp/column/obidome">
+                            <img src="<?php echo $baseUrl ?>/images/banner-ib-06.jpg" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrap-content-right">
+            <?php get_template_part('include/sidebar-right-pc'); ?>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php get_footer(); ?>

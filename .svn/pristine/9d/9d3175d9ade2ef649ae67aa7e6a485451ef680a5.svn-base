@@ -1,0 +1,260 @@
+<?php
+/**
+ * The template for displaying the header
+ *
+ * Displays all of the head element and everything up until the "site-content" div.
+ *
+ * @package WordPress
+ * @subpackage Twenty_Fifteen
+ * @since Twenty Fifteen 1.0
+ */
+
+global $is_active_plugin_dynamic_image_resizer;
+
+// Check active plugin dynamic-image-resizer
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+$is_active_plugin_dynamic_image_resizer = false;
+if ( is_plugin_active('dynamic-image-resizer/dynamic-image-resizer.php') ) {
+    $is_active_plugin_dynamic_image_resizer = true;
+}
+?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?> class="no-js">
+<head>
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+	<!--[if lt IE 9]>
+	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/html5.js"></script>
+	<![endif]-->
+	<?php wp_head(); ?>
+</head>
+
+<body <?php body_class(); ?>>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://www.wargo.jp/user_data/packages/default/assets/layout2018/css/new-wargo-style.css?ver=20200530108" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="stylesheet" href="https://www.wargo.jp/user_data/packages/default/assets/layout2018/css/icon-new-wargo.css?ver=20191209135400" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<!--<link rel="stylesheet" href="--><?php //echo esc_url( get_template_directory_uri() ); ?><!--/css/style-column-wargo.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />-->
+<script>
+    // Ten mincho
+    (function(d) {
+        var config = {
+                kitId: 'yxg1wap',
+                scriptTimeout: 3000,
+                async: true
+            },
+            h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+    })(document);
+</script>
+<div id="page" class="hfeed site">
+
+    <?php if (wp_is_mobile() == false) { ?>
+    <link rel="stylesheet" href="https://www.wargo.jp/user_data/packages/default/assets/layout2018/css/new-wargo-header-pc.css?ver=20200528556" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        <section class="wrap-section section-header box-columns-wargo">
+            <div class="top-header">
+                <div class="container">
+                    <a href="https://www.wargo.jp/products/list1577.html">
+                        <img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/banner_yakimono_pc.jpg" alt="">
+                    </a>
+                </div>
+            </div><!--end top-header-->
+            <div class="top-header-ec">
+                <div class="container">
+                    <div class="row">
+                        <div class="box-bt-header flexbox align-items-center">
+                            <div class="wrap-logo">
+                                <div class="logo">
+                                    <a href="https://www.wargo.jp"><img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/main-logo-the-ichi-v2.png" alt="かんざしの種類【The Ichi】"></a>
+                                </div>
+                            </div>
+                            <div class="wrap-text-noted-header">
+                                <p class="text"><a href="/">和ファッション通販サイト「座市−ザイチ-」</a></p>
+                            </div>
+                            <div class="wrap-overseas-shipping">
+                                <a href="/user_data/overseasorder_info.php" class="flexbox">
+                                    <img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/img-overseas-shipping-v2.png" alt="Overseas Shipping Service Available">
+                                    <span class="text">OVERSEAS SHIPPING!</span>
+                                </a>
+                            </div>
+
+                            <div class="wrap-wishlist-cart flexbox">
+                                <div class="box-item register"> <a href="/entry/kiyaku.php" class="flexbox"> <img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/img-register-v2.png" alt="新規会員登録"> <span class="text">新規会員登録</span> </a> </div>
+                                <div class="box-item login"> <a href="/mypage/login.php" class="flexbox"> <img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/img-login-v2.png" alt="ログイン"> <span class="text">ログイン</span> </a> </div>
+                                <div class="box-item favorite"> <a href="/mypage/favorite.php" class="flexbox"> <img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/img-favorite-v2.png" alt="お気に入り"> <span class="text">お気に入り</span> </a> </div>
+                                <div class="box-item cart"> <a href="/cart/index.php" class="flexbox"> <img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/img-cart-v2.png" alt=""> <span class="text">買い物かご</span> </a> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wrap-navigation-search">
+                <div class="container">
+                    <div class="row">
+                        <div class="box-nav-seach flexbox align-items-center justify-content-between">
+                            <ul class="list-nav flexbox">
+                                <li class="item-nav">
+                                    <a class="linkto" href="/">TOP</a>
+                                </li>
+                                <li class="item-nav">
+                                    <a class="linkto" href="/products/list86.html">かんざし</a>
+                                </li>
+                                <li class="item-nav">
+                                    <a class="linkto" href="/products/list626.html">和傘・和柄傘</a>
+                                </li>
+                                <li class="item-nav">
+                                    <a class="linkto" href="/products/list633.html">帯留め</a>
+                                </li>
+                                <li class="item-nav">
+                                    <a class="linkto" href="/products/list85.html">和シルバーアクセサリー</a>
+                                </li>
+                                <li class="item-nav">
+                                    <a class="linkto" href="/products/list718.html">浴衣</a>
+                                </li>
+                                <li class="item-nav">
+                                    <a class="linkto" href="/products/list939.html">箸・箸置き</a>
+                                </li>
+                            </ul>
+                            <div class="box-search-header">
+                                <form name="search_form_header" id="search_form_header" class="form-search flexbox justify-content-between" method="get" action="/products/list.php">
+                                    <input type="text" name="name" class="text-search" maxlength="50" value="" placeholder="お探しですか？" lang="ja"/>
+                                    <button type="submit" class="btn-search" >
+                                        <span class="icon icon-wargo-search flexbox"></span>
+                                    </button>
+                                    <input type="hidden" name="mode" value="search">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end wrap-navigation-search-->
+        </section><!--end wrap-section section-header-->
+
+    <?php } else { ?>
+
+    <link rel="stylesheet" href="https://www.wargo.jp/smartphone/user_data/packages/default/assets/layout2018/css/new-wargo-header-sp.css?ver=20200530108" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        <section class="wrap-section section-header">
+            <div class="top-header">
+                <div class="container">
+                    <a href="https://www.wargo.jp/products/list1577.html">
+                        <img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/banner_yakimono_sp.jpg" alt="">
+                    </a>
+                </div>
+            </div><!--end top-header-->
+            <div class="bottom-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="box-bt-header flexbox align-items-center">
+                            <div class="wrap-logo flexbox">
+                                <div class="logo">
+                                    <a href="/"><img src="/user_data/packages/default/assets/layout2018/images/logo.svg" alt="<!--{$titleTag}-->"></a>
+                                </div>
+                                <p class="slogan">和ファッション通販サイト<br>「座市−ザイチ-」</p>
+                            </div>
+                            <div class="wrap-toggle-menu">
+                                <img class="icon-toggle-menu" src="/smartphone/user_data/packages/default/assets/layout2018/images/icon-toggle-menu-sp-v2.svg" alt="">
+                            </div>
+                        </div><!--end box-bt-header-->
+                    </div>
+                </div>
+            </div><!--end bottom-header-->
+            <div class="wrap-sub-menu flexbox">
+                <div class="section-form-search">
+                    <div class="row">
+                        <div class="box-search-header">
+                            <form class="form-search flexbox justify-content-between" method="get" action="/products/list.php">
+                                <input type="hidden" name="mode" value="search">
+                                <input class="text-search" type="text" name="name" maxlength="50" value="" placeholder="お探しですか？">
+                                <button type="submit" class="btn-search">
+                                    <span class="icon icon-wargo-search flexbox"></span>
+                                </button>
+                            </form>
+                        </div><!--end box-search-header-->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="wrap-overlay-sidebar">
+            <div class="left-menu-sidebar">
+                <div class="sidebar-header flexbox justify-content-between align-items-center">
+                    <div class="wrap-logo-sb-v2 flexbox">
+                        <a class="main-logo" href="/"><img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/main-logo-the-ichi-v2.png" alt="かんざしの種類【The Ichi】"></a>
+                        <p class="main-text"><a href="/">和ファッション通販サイト<br>「座市−ザイチ-」</a></p>
+                    </div>
+                    <a href="#" class="close-menu">
+                        <span class="icon-wargo icon-wargo-menu-toggle-close flexbox"></span>
+                    </a>
+                </div>
+
+                <div class="wrap-menu-sb-v2 wrap-menu-sb-top-v2">
+                    <ul class="list-menu-sb-top-v2">
+                        <li class="item-menu">
+                            <a href="/user_data/overseasorder_info.php" class="flexbox">
+                                <img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/img-overseas-shipping-v2.png" alt="Overseas Shipping Service Available">
+                                <span class="text">OVERSEAS SHIPPING!</span>
+                            </a>
+                        </li>
+                        <li class="item-menu">
+                            <a href="/entry/kiyaku.php" class="flexbox">
+                                <img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/img-register-v2.png" alt="新規会員登録">
+                                <span class="text">新規会員登録</span>
+                            </a>
+                        </li>
+                        <li class="item-menu">
+                            <a href="/mypage/login.php?r=<!--{$unique_key}-->" class="flexbox">
+                                <img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/img-login-v2.png" alt="ログイン">
+                                <span class="text">ログイン</span>
+                            </a>
+                        </li>
+                        <li class="item-menu">
+                            <a href="/cart/index.php" class="flexbox">
+                                <img src="https://www.wargo.jp/user_data/packages/default/assets/layout2018/images/img-cart-v2.png" alt="">
+                                <span class="text">買い物かご</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="wrap-menu-sb-v2 wrap-menu-sb-bottom-v2">
+                    <div class="box-search-header wrap-search-sb-v2">
+                        <form name="search_form_header" id="search_form_header" class="form-search flexbox justify-content-between" method="get" action="/products/list.php">
+                            <input type="text" name="name" class="text-search" maxlength="50" value="" placeholder="お探しですか？" lang="ja"/>
+                            <button type="submit" class="btn-search" >
+                                <span class="icon icon-wargo-search flexbox"></span>
+                            </button>
+                            <input type="hidden" name="mode" value="search">
+                        </form>
+                    </div>
+                    <ul class="list-menu-sb-bottom-v2">
+                        <li class="item-menu"><a href="/">TOP</a></li>
+                        <li class="item-menu"><a href="/products/list86.html">かんざし</a></li>
+                        <li class="item-menu"><a href="/products/list626.html">和傘・和柄傘</a></li>
+                        <li class="item-menu"><a href="/products/list633.html">帯留め</a></li>
+                        <li class="item-menu"><a href="/products/list85.html">和シルバーアクセサリー</a></li>
+                        <li class="item-menu"><a href="/products/list718.html">浴衣</a></li>
+                        <li class="item-menu"><a href="/products/list939.html">箸・箸置き</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script>
+            /*===Sidebar Menu===*/
+            $(".icon-toggle-menu").on('click', function(e){
+                e.stopImmediatePropagation();
+                $('.left-menu-sidebar').addClass('active');
+                $('body').addClass('fixed-body');
+                $('.wrap-overlay-sidebar').addClass('overlay-menu');
+            });
+
+            $(".close-menu").on('click', function(e){
+                e.preventDefault();
+                $('.left-menu-sidebar').removeClass('active');
+                $('body').removeClass('fixed-body');
+                $('.wrap-overlay-sidebar').removeClass('overlay-menu');
+            });
+        </script>
+    <?php } ?>
+
+    <section class="container container-columns">

@@ -1,0 +1,185 @@
+<?php
+/**
+ * The template for displaying all single posts and attachments
+ *
+ * @package WordPress
+ * @subpackage Twenty_Fifteen
+ * @since Twenty Fifteen 1.0
+ */
+ ?>
+
+<?php
+    get_header();
+
+    gt_set_post_view();
+
+    global $post, $is_active_plugin_dynamic_image_resizer;
+    $postName = $post->post_name ? $post->post_name : '';
+
+    if ( wp_is_mobile() ) {
+        wp_register_style('column-ec-v2-sp-style', THEME_URL.'/css/column-ec-v2-sp.css', 'twentyfifteen', time());
+        wp_enqueue_style('column-ec-v2-sp-style');
+    } else {
+        wp_register_style('column-ec-v2-pc-style', THEME_URL.'/css/column-ec-v2-pc.css', 'twentyfifteen', time());
+        wp_enqueue_style('column-ec-v2-pc-style');
+    }
+
+    $obj_tax_column = get_the_terms($post->ID, 'category');
+    $cate_name = '';
+    if ($obj_tax_column) {
+        foreach ($obj_tax_column as $tax_column){
+            $cate_name = $tax_column->slug;
+        }
+    }
+
+    $arr_meta_cate = array(
+        'kanzashi' => array(
+            'cate_name' => 'かんざし屋wargo',
+        ),
+        'umbrella' => array(
+            'cate_name' => '北斎グラフィック',
+        ),
+        'obidome' => array(
+            'cate_name' => 'おびどめ屋wargo',
+        ),
+        'accessary' => array(
+            'cate_name' => 'かすう工房',
+        ),
+        'chopsticks' => array(
+            'cate_name' => '箸や万作',
+        ),
+        'yukata' => array(
+            'cate_name' => 'ゆかた屋hiyori',
+        ),
+    );
+
+?>
+
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div id="breadcrumbs" class="breadcrumbs-ec">
+                <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                    <li class="item-breadcrumbs" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a class="link-breadcrumbs" itemprop="item" href="https://www.wargo.jp/">
+                            <span class="text-breadcrumbs" itemprop="name">TOP</span>
+                        </a>
+                        <meta itemprop="position" content="0">
+                    </li>
+                    <span class="separator"> &gt; </span>
+                    <li class="item-breadcrumbs" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a class="link-breadcrumbs" itemprop="item" href="https://www.wargo.jp/column">
+                            <span class="text-breadcrumbs" itemprop="name">座市コラム特集</span>
+                        </a>
+                        <meta itemprop="position" content="1">
+                    </li>
+                    <span class="separator"> &gt; </span>
+                    <li class="item-breadcrumbs" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a class="link-breadcrumbs" itemprop="item" href="https://www.wargo.jp/column/<?php echo isset($cate_name) ? $cate_name : '#'; ?>">
+                            <span class="text-breadcrumbs" itemprop="name"><?php echo isset($arr_meta_cate[$cate_name]['cate_name']) ? $arr_meta_cate[$cate_name]['cate_name'] : ''; ?></span>
+                        </a>
+                        <meta itemprop="position" content="2">
+                    </li>
+                    <span class="separator"> &gt; </span>
+                    <li class="item-breadcrumbs last-breadcrumbs" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <span class="text-breadcrumbs" itemprop="name"><?php the_title(); ?></span>
+                        <meta itemprop="position" content="3">
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap-column-content flexbox">
+    <div class="wrap-content-left">
+
+        <div class="wrap-feature-image">
+            <?php
+                if (wp_is_mobile()){
+                    if($is_active_plugin_dynamic_image_resizer){
+                        $feature_image = has_post_thumbnail($post->ID) ? swe_get_the_post_thumbnail($post->ID, array(335,200), array('alt' => get_the_title())) : '<img src="' . THEME_URL . '/images/no-image-feature-sp.jpg" alt="' . get_the_title() . '">';
+                    } else {
+                        $feature_image = has_post_thumbnail($post->ID) ? get_the_post_thumbnail($post->ID, 'full', array('alt' => get_the_title())) : '<img src="' . THEME_URL . '/images/no-image-feature-sp.jpg" alt="' . get_the_title() . '">';
+                    }
+                }else{
+                    $feature_image = has_post_thumbnail($post->ID) ? get_the_post_thumbnail($post->ID, 'full', array('alt' => get_the_title())) : '<img src="' . THEME_URL . '/images/no-image-feature.jpg" alt="' . get_the_title() . '">';
+                }
+                echo $feature_image;
+            ?>
+            <div class="info-feature-image">
+                <h1 class="title-column"><?php the_title(); ?></h1>
+                <ul class="list-info-feature flexbox">
+                    <li class="text">投稿日</li>
+                    <li class="date"><?php echo get_the_date('Y.m.d', $post->ID); ?></li>
+                    <li class="num-view"><?php echo gt_get_post_view(); ?></li>
+                </ul>
+            </div>
+        </div>
+        <p class="wrap-brief-column">
+            <?php
+                $post_content =  wp_trim_words($post->post_content);
+                $num_word_brief = 150;
+                if (wp_is_mobile()) {
+                    $num_word_brief = 60;
+                }
+                $brief_column = mb_substr( $post_content, 0, $num_word_brief, "utf-8" ) . ' ...';
+                echo $brief_column;
+            ?>
+        </p>
+
+        <div class="entry-content">
+            <?php if ( have_posts() ) : while ( have_posts() ) : the_post();
+                the_content();
+            endwhile; else: ?>
+                <p>Sorry, no posts matched your criteria.</p>
+            <?php endif; ?>
+        </div>
+
+        <div class="wrap-related-columns">
+            <h2 class="title-related-columns">関連 する コラム</h2>
+            <ul class="list-related-columns flexbox">
+            <?php
+            $related_columns = get_posts( array( 'category__in' => wp_get_post_categories($post->ID), 'numberposts' => 4, 'post__not_in' => array($post->ID) ) );
+            if ($related_columns) {
+                foreach( $related_columns as $post ) {
+                    if ($is_active_plugin_dynamic_image_resizer) {
+                        $img_post = has_post_thumbnail($post->ID) ? swe_get_the_post_thumbnail($post->ID, array(345,276), array('alt' => get_the_title())) : '<img src="' . THEME_URL . '/images/no-image.jpg" alt="' . get_the_title() . '">';
+                    } else {
+                        $img_post = has_post_thumbnail($post->ID) ? get_the_post_thumbnail($post->ID, 'full', array('alt' => get_the_title())) : '<img src="' . THEME_URL . '/images/no-image.jpg" alt="' . get_the_title() . '">';
+                    }
+                    $post_content =  wp_trim_words($post->post_content);
+                    $num_word = 50;
+                    if (wp_is_mobile()) {
+                        $num_word = 20;
+                    }
+                    $description = mb_substr( $post_content, 0, $num_word, "utf-8" ) . ' ...';
+                    setup_postdata($post);
+                ?>
+                    <li class="related-column">
+                        <a href="<?php the_permalink() ?>">
+                            <p class="image"><?php echo $img_post; ?></p>
+                            <p class="title"><?php the_title(); ?></p>
+                            <p class="description"><?php echo isset($description)?$description:''; ?></p>
+                        </a>
+                    </li>
+            <?php }
+            }
+            ?>
+            </ul>
+        </div>
+    </div>
+    <?php if (!wp_is_mobile()) : ?>
+        <div class="wrap-content-right">
+            <?php get_template_part('include/sidebar-right-pc'); ?>
+        </div>
+    <?php endif ?>
+</div>
+<script>
+    $(document).ready(function(){
+        if ($('#toc_container').length) {
+            $('#toc_container').insertBefore('.wrap-post-content');
+        }
+    })
+</script>
+<?php get_footer(); ?>

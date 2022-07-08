@@ -1,0 +1,171 @@
+<?php
+/**
+ * Class SWE_JSON_API
+ */
+class SWE_JSON_API
+{
+    public $requestUrl;
+    public $controllerName = '';
+    public $cate_name = null;
+    const ACTION_INDEX = 'index';
+    const ACTION_CATE = 'cate';
+    const ACTION_DETAIL = 'detail';
+    public $action = self::ACTION_INDEX;
+
+    function __construct()
+    {
+        $this->query = new SWE_JSON_API_Query();
+        $this->cache = new SWE_JSON_API_Cache();
+    }
+
+    /**
+     * @param $url
+     * @return bool
+     */
+    function execute($url)
+    {
+        $routes = '{mode}/{controller}/{cate_name}';
+        $params = $this->query->parseURL($routes, $url);
+        if (empty($params) || ($params['mode'] != SWE_JSON_API_BASE)) {
+            return false;
+        }
+        if (!isset($params['controller'])) {
+            $this->error("Oops, Function api miss something please correct it!");
+        }
+        $this->requestUrl = $url;
+        $this->controllerName = $params['controller'];
+
+        if (isset($params['cate_name'])) {
+            $this->cate_name = $params['cate_name'];
+            $this->action = self::ACTION_CATE;
+        }
+
+        $clearCache = $this->query->get('cc') != null;
+        $dir_path = $this->cache->cache_dir($this->controllerName);
+        $file = $dir_path . '/' . md5($this->requestUrl) . '.json';
+        $json_results = $this->cache->get_cache($file, SWE_JSON_API_CACHE_TIME);
+
+        if (!$json_results || $clearCache) {
+            $result = $this->executeAction();
+            $json_results = $this->genJson($result);
+            $json_results['cached'] = time();
+            $this->cache->make_cache_file($file, json_encode($json_results));
+        }
+
+        $this->respond($json_results, 200);
+
+        return true;
+    }
+
+    /**
+     * @param $url
+     * @param bool $clearCache
+     * @return array|bool|mixed|object
+     */
+    function callAPI($url, $clearCache = false)
+    {
+        $routes = '{mode}/{controller}/{cate_name}';
+        $params = $this->query->parseURL($routes, $url);
+        if (empty($params) || ($params['mode'] != SWE_JSON_API_BASE)) {
+            return false;
+        }
+        if (!isset($params['controller'])) {
+            $this->error("Oops, Function api miss something please correct it!");
+        }
+        $this->requestUrl = $url;
+        $this->controllerName = $params['controller'];
+
+        if (isset($params['cate_name'])) {
+            $this->cate_name = $params['cate_name'];
+            $this->action = self::ACTION_DETAIL;
+        }
+        $dir_path = $this->cache->cache_dir($this->controllerName);
+        $file = $dir_path . '/' . md5($this->requestUrl) . '.json';
+        $json_results = $this->cache->get_cache($file, SWE_JSON_API_CACHE_TIME);
+
+        if (!$json_results || $clearCache) {
+            $result = $this->executeAction();
+
+            $json_results = $this->genJson($result);
+            $json_results['cached'] = time();
+            $this->cache->make_cache_file($file, json_encode($json_results));
+        }
+
+        return $json_results;
+    }
+
+    /**
+     * @return mixed
+     */
+    function executeAction()
+    {
+        $c = $this->import_controller($this->controllerName);
+        $method = 'action' . ucfirst($this->action);
+        $error = "Method [$method] in controller [$this->controllerName] not exists!";
+        if (!method_exists($c, $method)) {
+            $this->error($error);
+        }
+        return $this->cate_name ? $c->$method($this->cate_name) : $c->$method();
+    }
+
+    /**
+     * @param $controllerName
+     * @return mixed
+     */
+    function import_controller($controllerName)
+    {
+        $controllerName = ucfirst($controllerName);
+        static $controllers = array();
+        if (!isset($controllers[$controllerName])) {
+            $file = SWE_JSON_API_PLUGIN_DIR . '/controllers/' . $controllerName . '.php';
+            $error = "Controller [$controllerName] not found!";
+
+            if (file_exists($file)) {
+                require_once "$file";
+                $className = "SWE_JSON_API_$controllerName" . "_Controller";
+
+                if (!class_exists($className, FALSE)) {
+                    $this->error($error);
+                }
+
+                $controllers[$controllerName] = new $className;
+            } else {
+                $this->error($error);
+            }
+        }
+        $v = $controllers[$controllerName];   // Don't return reference
+        return $v;
+    }
+
+    function error($message = 'Unknown error', $code = '0000')
+    {
+        $result = array(
+            'api' => 'failed',
+            'error' => $message,
+            'code' => $code
+        );
+
+        $this->respond($result);
+
+        exit;
+    }
+
+    /**
+     * @param $result
+     * @param int $status_code
+     */
+    function respond($result, $status_code = null)
+    {
+        wp_send_json($result, $status_code);
+        exit;
+    }
+
+    function genJson($content)
+    {
+        return array(
+            'api' => 'success',
+            'result' => $content
+        );
+    }
+
+}

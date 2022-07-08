@@ -1,0 +1,382 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+}
+table, tr, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+a{
+    text-decoration: none;
+    color: #000;
+}
+var{
+    font-style: normal;
+}
+input, button{
+    outline: none;
+}
+button{
+    cursor: pointer;
+    border: none;
+}
+img{
+    border: 0;
+    vertical-align: bottom;
+    max-width: 100%;
+    height: auto;
+}
+*{
+    -webkit-tap-highlight-color: transparent;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.sp{
+    display: block;
+}
+.hidden-sidebar,
+.pc {
+    display: none !important;
+}
+body {
+    background: #fff;
+    color: #282828;;
+    font-size: 75%;
+    font-family: "Noto Sans JP", メイリオ, Meiryo, "ヒラギノ角ゴ Pro W3", Arial, "Hiragino Kaku Gothic Pro", "Lucida Grande", Verdana, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    line-height: 1.7;
+}
+html,body{
+    height: 100%;
+}
+.container-box{
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+.container{
+    max-width: 1024px;
+    width: 100%;
+    margin: 0 auto;
+}
+.container-new{
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    max-width: calc(100% - 24px);
+}
+.flexbox{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: flex;
+}
+.align-items-center{
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-align-items: center;
+}
+.align-items-start{
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+.align-items-end{
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+}
+.justify-content-center{
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: center;
+    -webkit-justify-content: center;
+}
+.justify-content-between{
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+}
+table{
+    width: 100%;
+}
+.breadcrumbs-araiba{
+    margin: 10px 0;
+}
+.breadcrumbs-araiba ol{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+@media(max-width: 767px){
+    .breadcrumbs-araiba ol {
+        overflow-x: auto;
+    }
+    .breadcrumbs-araiba li.item-breadcrumbs, .breadcrumbs-araiba .last-breadcrumbs .text-breadcrumbs {
+        font-size: 10px;
+        white-space: nowrap;
+    }
+}
+.breadcrumbs-araiba .separator{
+    margin: 0 5px;
+}
+.breadcrumbs-araiba .last-breadcrumbs .text-breadcrumbs{
+    font-weight: bold;
+}
+.box-btn-general .btn-general{
+    text-align: center;
+    width: 100%;
+    height: 72px;
+}
+.box-btn-general .btn-general .link-to{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background-image: url(../../../../../images/araiba/btn-pattern-sp.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 4px 3px 2px rgba(1 , 1 , 1 , 0.15);
+}
+.btn-booking{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 85%;
+    height: 100%;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    background-color: #E7004C;
+    border-radius: 6px;
+    box-shadow: 0 5px 2px #9E053C;
+    position: relative;
+}
+@media screen and (max-width: 767px){
+    .btn-booking {
+        width: 100%;
+        max-width: 400px;
+    }
+}
+.btn-booking .sub-txt-btn{
+    position: absolute;
+    top: -52px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    color: #E7004C;
+    background-color: #fff;
+    border: 1px solid #E7004C;
+    padding: 10px;
+    text-align: center;
+    width: 65%;
+}
+.btn-booking .sub-txt-btn:after{
+    position: absolute;
+    content: '';
+    height: 10px;
+    width: 10px;
+    background-color: white;
+    bottom: -6px;
+    left: 50%;
+    border-top: #E7004C solid 1px;
+    border-left: #E7004C solid 1px;
+    transform: translateX(-50%) rotate(225deg) skew(15deg, 15deg);
+}
+.btn-booking .arrow{
+    margin-left: 5px;
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 50.9 50.9' style='enable-background:new 0 0 50.9 50.9;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23FFFFFF;%7D .st1%7Bfill:%23E7004C;%7D%0A%3C/style%3E%3Cg%3E%3Cpath class='st0' d='M50.9,25.4c0,14-11.4,25.4-25.4,25.4C11.4,50.9,0,39.5,0,25.4C0,11.4,11.4,0,25.4,0 C39.5,0,50.9,11.4,50.9,25.4'/%3E%3Cg%3E%3Cpath class='st1' d='M5.4,23h29.2c-1.6-1.2-3.6-3.4-5-5.4l4.7-2.5c3,3.8,7.5,7.9,11.4,10.5c-4,2.6-8.4,6.7-11.4,10.5l-4.7-2.5 c1.4-2,3.4-4.2,5-5.4H5.4V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
+    width: 30px;
+    height: 30px;
+}
+.line-general{
+    width: 100%;
+    height: 20px;
+    background: repeating-linear-gradient(-45deg,#0084cb,#0084cb 5px,rgba(255,255,255,1) 5px,rgba(255,255,255,1) 10px);
+    display: inline-table;
+}
+@-webkit-keyframes scrollDown {
+    0% {
+        -webkit-transform: translateY(-20px);
+        transform: translateY(-20px);
+    }
+    100% {
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+    }
+}
+@keyframes scrollDown {
+    0% {
+        -webkit-transform: translateY(-20px);
+        transform: translateY(-20px);
+    }
+    100% {
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+    }
+}
+
+@media (max-width: 767px){
+    .row{
+        padding: 0 10px;
+    }
+}
+@media (max-width: 360px){
+    .box-btn-general .btn-general{
+        height: 40px;
+    }
+    .box-btn-general .btn-general .link-to{
+        font-size: 16px;
+    }
+    .btn-booking .sub-txt-btn{
+        font-size: 13px;
+        top: -48px;
+        padding: 8px;
+    }
+    .btn-booking{
+        font-size: 18px;
+    }
+    .btn-booking .arrow{
+        width: 24px;
+        height: 24px;
+    }
+}
+@media (min-width: 750px){
+    .sp{
+        display: none;
+    }
+    .hidden-sidebar,
+    .pc{
+        display: block !important;
+    }
+    .box-btn-general .btn-general{
+        width: 600px;
+        height: 92px;
+        margin: 0 auto;
+    }
+    .box-btn-general .btn-general .link-to{
+        font-size: 35px;
+        background-image: url(../../../../../images/araiba/btn-pattern-other.svg);
+        background-size: 100% 100%;
+    }
+    .btn-booking{
+        font-size: 44px;
+        width: 100%;
+    }
+    .btn-booking .arrow{
+        width: 40px;
+        height: 40px;
+    }
+    .btn-booking .sub-txt-btn{
+        font-size: 22px;
+        width: 50%;
+        top: -55px;
+    }
+}
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px){
+    .row{
+        padding: 0 10px;
+    }
+}
+@font-face {
+    font-family: 'navicon';
+    src:  url('../../../../../images/fonts/navicon.eot?6ggsos');
+    src:  url('../../../../../images/fonts/navicon.eot?6ggsos#iefix') format('embedded-opentype'),
+    url('../../../../../images/fonts/navicon.ttf?6ggsos') format('truetype'),
+    url('../../../../../images/fonts/navicon.woff?6ggsos') format('woff'),
+    url('../../../../../images/fonts/navicon.svg?6ggsos#navicon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+[class^="navicon-"], [class*=" navicon-"] {
+    font-family: 'navicon',serif !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.navicon-faq:before {
+    content: "\e900";
+    color: #fff;
+}
+.navicon-flower:before {
+    content: "\e901";
+    color: #fff;
+}
+.navicon-lock:before {
+    content: "\e902";
+    color: #fff;
+}
+.navicon-note:before {
+    content: "\e903";
+    color: #fff;
+}
+.navicon-phone:before {
+    content: "\e904";
+    color: #fff;
+}

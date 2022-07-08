@@ -1,0 +1,50 @@
+<?php
+/**
+ * The template for displaying all single posts and attachments
+ *
+ * @package WordPress
+ * @subpackage Twenty_Fifteen
+ * @since Twenty Fifteen 1.0
+ */
+ ?>
+
+<?php
+    get_header();
+
+    global $post, $isSmartPhone;
+    $postName = $post->post_name ? $post->post_name : '';
+
+    if ( wp_is_mobile() ) {
+        wp_register_style('column-ec-v2-sp-style', THEME_URL.'/css/column-ec-v2-sp.css', 'twentyfifteen', time());
+        wp_enqueue_style('column-ec-v2-sp-style');
+    } else {
+        wp_register_style('column-ec-v2-pc-style', THEME_URL.'/css/column-ec-v2-pc.css', 'twentyfifteen', time());
+        wp_enqueue_style('column-ec-v2-pc-style');
+    }
+?>
+
+<div class="wrap-content flexbox">
+    <div class="wrap-content-left">
+        <header class="entry-header">
+            <?php
+            if ( is_single() ) :
+                the_title( '<h1 class="entry-title">', '</h1>' );
+            else :
+                the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' );
+            endif;
+            ?>
+        </header>
+        <div class="entry-content">
+            <?php if ( have_posts() ) : while ( have_posts() ) : the_post();
+                the_content();
+            endwhile; else: ?>
+                <p>Sorry, no posts matched your criteria.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div class="wrap-content-right">
+        <?php get_template_part('include/sidebar-right-pc'); ?>
+    </div>
+</div>
+
+<?php get_footer(); ?>

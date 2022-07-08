@@ -1,0 +1,30 @@
+<?php
+/*
+ * Template Name: Column List
+ */
+?>
+<?php
+    get_header();
+
+    global $post, $isSmartPhone;
+    $postName = $post->post_name ? $post->post_name : '';
+
+    if ( wp_is_mobile() ) {
+        wp_register_style('column-ec-v2-sp-style', THEME_URL.'/css/column-ec-v2-sp.css', 'twentyfifteen', time());
+        wp_enqueue_style('column-ec-v2-sp-style');
+    } else {
+        wp_register_style('column-ec-v2-pc-style', THEME_URL.'/css/column-ec-v2-pc.css', 'twentyfifteen', time());
+        wp_enqueue_style('column-ec-v2-pc-style');
+    }
+?>
+
+<div class="wrap-content flexbox">
+    <div class="wrap-content-left">
+        <p>column list</p>
+    </div>
+    <div class="wrap-content-right">
+        <?php get_template_part('include/sidebar-right-pc'); ?>
+    </div>
+</div>
+
+<?php get_footer(); ?>
